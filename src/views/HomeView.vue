@@ -52,7 +52,7 @@ const chartType = ref('ColumnChart');
    </div>
  
    </section>
-   <GChart :data="chartData" :options="chartOptions" :type="chartType" class="chart" />
+   <GChart :data="chartData" :options="chartOptions" type="ColumnChart" class="chart" />
   </main>
 </template>
 
