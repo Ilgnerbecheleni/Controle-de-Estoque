@@ -1,12 +1,18 @@
 <script setup lang="ts">
-import { RouterLink, RouterView } from 'vue-router'
+import { onMounted } from 'vue';
+import { useRoute } from 'vue-router'
 import MenuItem from './components/MenuItem.vue';
+
+const route = useRoute().name;
+
+const isLoginRoute = route == 'login';
+
+
 </script>
 
 <template>
-<MenuItem/>
 
-  <RouterView />
+  <RouterView  />
 </template>
 
 <style scoped>

@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 import { GChart } from 'vue-google-charts'
-
+import MenuItem from '../components/MenuItem.vue';
 // Dados do gráfico
 const chartData = ref([
   ['Ano', 'Vendas', 'Despesas'],
@@ -14,19 +14,17 @@ const chartData = ref([
 // Opções do gráfico
 const chartOptions = ref({
   title: 'Vendas e Despesas',
-  width: 810,
+  width: 800,
   height: 400,
   
 });
 
-// Tipo do gráfico
-const chartType = ref('ColumnChart');
 
 
 </script>
 
 <template>
- 
+    <MenuItem  />
   <main class="home">
    <h1 class="home-title">Dashboard</h1>
    <section class="cards">
@@ -52,7 +50,10 @@ const chartType = ref('ColumnChart');
    </div>
  
    </section>
-   <GChart :data="chartData" :options="chartOptions" type="ColumnChart" class="chart" />
+   <div class="chart">
+    <GChart :data="chartData" :options="chartOptions" type="ColumnChart"  />
+   </div>
+  
   </main>
 </template>
 
@@ -110,6 +111,12 @@ padding:20px ;
   width: 800px;
   box-shadow: 0px 10px 56px 30px rgba(0,0,0,0.1),0px 10px 15px 6px rgba(0,0,0,0.1);
   
+}
+
+@media only screen  and (max-width:508px) {
+  .chart{
+    width: 400px;
+  }
 }
 
 

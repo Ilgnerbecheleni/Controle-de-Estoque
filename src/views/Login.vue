@@ -18,7 +18,7 @@ export default {
 
 <style>
 .login{
-    margin-left: 250px;
+  
     display: flex;
     flex-direction: column;
     align-items: center;

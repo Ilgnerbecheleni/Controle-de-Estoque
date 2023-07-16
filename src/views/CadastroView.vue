@@ -1,8 +1,9 @@
 <script setup lang="ts">
-
+import MenuItem from '../components/MenuItem.vue';
 
 </script>
 <template>
+   <MenuItem  />
 <section class="cadastro-prod">
 
   <form action="">

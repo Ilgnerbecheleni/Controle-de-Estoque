@@ -2,6 +2,7 @@
     <nav>
         <img src="../assets/logo.png" alt="logo sistema" class="img-logo">
         <RouterLink to="/">Home</RouterLink>
+        <RouterLink to="/produtos">Produtos</RouterLink>
         <RouterLink to="/cadastroProduto">Cadastro Produtos</RouterLink>
         <RouterLink to="/registroentrada">Registro Entrada</RouterLink>
         <RouterLink to="/venda">Venda</RouterLink>
