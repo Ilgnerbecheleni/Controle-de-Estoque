@@ -1,23 +1,46 @@
-<script setup lang="ts">
-import { ref } from 'vue';
-import { GChart } from 'vue-google-charts'
+<script >
+
 import MenuItem from '../components/MenuItem.vue';
 // Dados do gráfico
-const chartData = ref([
-  ['Ano', 'Vendas', 'Despesas'],
-  ['2015', 1000, 400],
-  ['2016', 1170, 460],
-  ['2017', 660, 1120],
-  ['2018', 1030, 540],
-]);
 
-// Opções do gráfico
-const chartOptions = ref({
-  title: 'Vendas e Despesas',
-  width: 800,
-  height: 400,
-  
-});
+import axios from 'axios';
+
+export default {
+  components:{
+    MenuItem,
+  },
+  data() {
+    return {
+      totalProdutos: 0,
+      estoqueTotal: 0,
+    };
+  },
+  async mounted() {
+    try {
+      await this.fetchTotalProdutos();
+    } catch (error) {
+      console.error('Erro ao buscar total de produtos:', error);
+    }
+  },
+  methods: {
+    async fetchTotalProdutos() {
+      try {
+        const response = await axios.get('http://localhost:3000/produtos');
+        this.totalProdutos = response.data.length;
+        this.estoqueTotal = this.calculateEstoqueTotal(response.data);
+      } catch (error) {
+        console.error('Erro ao buscar total de produtos:', error);
+      }
+    },
+    calculateEstoqueTotal(produtos) {
+      let total = 0;
+      for (const produto of produtos) {
+        total += produto.quantidade * produto.preco;
+      }
+      return total.toFixed(2);
+    },
+  },
+};
 
 
 
@@ -28,27 +51,28 @@ const chartOptions = ref({
   <main class="home">
    <h1 class="home-title">Dashboard</h1>
    <section class="cards">
-    <div class="card-info">
-    <!-- Card -->
-    <h2>Vendas no dia</h2>
-    <h2>R$  2300</h2>
-   </div>
-   <div class="card-info vendas-mes">
-    <!-- Card -->
-    <h2>Vendas no mês</h2>
-    <h2>R$  23.000</h2>
-   </div>
-   <div class="card-info estoque-tot">
+    <div class="card-info estoque-tot">
     <!-- Card -->
     <h2>Estoque Total</h2>
-    <h2>R$  93.000</h2>
+    <h2>R$ {{ estoqueTotal }}</h2>
    </div>
    <div class="card-info prod-cadastrado">
     <!-- Card -->
     <h2>Produtos Cadastrados</h2>
-    <h2>100</h2>
-   </div>
+    <h2>{{ totalProdutos }}</h2>
+  </div>
  
+    <div class="card-info">
+    <!-- Card -->
+    <h2>Vendas no dia</h2>
+    <h2>R$  0</h2>
+   </div>
+   <div class="card-info vendas-mes">
+    <!-- Card -->
+    <h2>Vendas no mês</h2>
+    <h2>R$  0</h2>
+   </div>
+
    </section>
    <div class="chart">
     <GChart :data="chartData" :options="chartOptions" type="ColumnChart"  />
